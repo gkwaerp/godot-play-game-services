@@ -11,7 +11,7 @@ val pluginPackageName = "com.jacobibanez.plugin.android.godotplaygameservices"
 
 android {
     namespace = pluginPackageName
-    compileSdk = 34
+    compileSdk = 35
 
     buildFeatures {
         buildConfig = true
@@ -36,9 +36,9 @@ android {
 }
 
 dependencies {
-    implementation("com.google.code.gson:gson:2.10.1")
-    implementation("com.google.android.gms:play-services-games-v2:20.1.2")
-    implementation("org.godotengine:godot:4.3.0.stable")
+    implementation("com.google.code.gson:gson:2.11.0")
+    implementation("com.google.android.gms:play-services-games-v2:21.0.0")
+    implementation("org.godotengine:godot:4.5.1.stable")
 
     dokkaPlugin("org.jetbrains.dokka:android-documentation-plugin:1.9.10")
 }
@@ -48,18 +48,18 @@ val copyDebugAARToDemoAddons by tasks.registering(Copy::class) {
     description = "Copies the generated debug AAR binary to the plugin's addons directory"
     from("build/outputs/aar")
     include("$pluginName-debug.aar")
-    into("demo/addons/$pluginName/bin/debug")
+    into("../demo/addons/$pluginName/bin/debug")
 }
 
 val copyReleaseAARToDemoAddons by tasks.registering(Copy::class) {
     description = "Copies the generated release AAR binary to the plugin's addons directory"
     from("build/outputs/aar")
     include("$pluginName-release.aar")
-    into("demo/addons/$pluginName/bin/release")
+    into("../demo/addons/$pluginName/bin/release")
 }
 
 val cleanDemoAddons by tasks.registering(Delete::class) {
-    delete("demo/addons/$pluginName")
+    delete("../demo/addons/$pluginName")
 }
 
 val copyAddonsToDemo by tasks.registering(Copy::class) {
@@ -70,7 +70,7 @@ val copyAddonsToDemo by tasks.registering(Copy::class) {
     finalizedBy(copyReleaseAARToDemoAddons)
 
     from("export_scripts_template")
-    into("demo/addons/$pluginName")
+    into("../demo/addons/$pluginName")
 }
 
 tasks.named("assemble").configure {
